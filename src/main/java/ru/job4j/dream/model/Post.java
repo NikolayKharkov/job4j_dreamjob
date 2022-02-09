@@ -1,7 +1,6 @@
 package ru.job4j.dream.model;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Post {
@@ -9,14 +8,12 @@ public class Post {
     private String name;
     private String description;
     private LocalDate created;
-    private static final DateTimeFormatter FORMATTER =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public Post(int id, String name, String description, String created) {
+    public Post(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.created = LocalDate.parse(created, FORMATTER);
+        this.created = LocalDate.now();
     }
 
     public int getId() {
