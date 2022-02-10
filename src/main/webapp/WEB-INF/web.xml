@@ -1,9 +1,26 @@
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"
-         version="2.5"
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
     <display-name>Archetype Created Web Application</display-name>
+    <servlet>
+        <servlet-name>PhotoUploadServlet</servlet-name>
+        <servlet-class>ru.job4j.dream.servlet.PhotoUploadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PhotoUploadServlet</servlet-name>
+        <url-pattern>/photoUpload</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>PhotoDownloadServlet</servlet-name>
+        <servlet-class>ru.job4j.dream.servlet.PhotoDownloadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PhotoDownloadServlet</servlet-name>
+        <url-pattern>/photoDownload</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>PostServlet</servlet-name>
         <servlet-class>ru.job4j.dream.servlet.PostServlet</servlet-class>
@@ -19,6 +36,14 @@
     <servlet-mapping>
         <servlet-name>CandidateServlet</servlet-name>
         <url-pattern>/candidates.do</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DeleteCandidateServlet</servlet-name>
+        <servlet-class>ru.job4j.dream.servlet.DeleteCandidateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteCandidateServlet</servlet-name>
+        <url-pattern>/deleteCandidate</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>IndexServlet</servlet-name>
