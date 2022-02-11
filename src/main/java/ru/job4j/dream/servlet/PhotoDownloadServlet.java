@@ -15,7 +15,7 @@ public class PhotoDownloadServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
         File downloadFile = null;
-        for (File file : new File(Property.getPhotoStorage()).listFiles()) {
+        for (File file : new File(Property.returnValue("usersPhoto")).listFiles()) {
             String fileName = file.getName();
             if (id.equals(fileName.substring(0, fileName.indexOf('.')))) {
                 downloadFile = file;

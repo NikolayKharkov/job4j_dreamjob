@@ -35,11 +35,11 @@ public class PhotoUploadServlet extends HttpServlet {
         ServletFileUpload upload = new ServletFileUpload(factory);
         try {
             List<FileItem> items = upload.parseRequest(req);
-            File folder = new File(Property.getPhotoStorage());
+            File folder = new File(Property.returnValue("usersPhoto"));
             if (!folder.exists()) {
                 folder.mkdir();
             }
-            for (File file : new File(Property.getPhotoStorage()).listFiles()) {
+            for (File file : new File(Property.returnValue("usersPhoto")).listFiles()) {
                 String fileName = file.getName();
                 if (userId.equals(fileName.substring(0, fileName.indexOf('.')))) {
                     file.delete();
