@@ -17,16 +17,12 @@
         <thead>
         <tr>
             <th>URL</th>
-            <th>Актуальное фото</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${id}" var="id" varStatus="status">
             <tr>
                 <td><a href="<c:url value='/photoDownload?id=${id}'/>">Download</a></td>
-                <td>
-                    <img src="<c:url value='/photoDownload?id=${id}'/>" width="100px" height="100px"/>
-                </td>
             </tr>
         </c:forEach>
         </tbody>
