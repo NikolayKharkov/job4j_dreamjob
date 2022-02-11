@@ -66,4 +66,14 @@ public class Post {
     public LocalDate getCreated() {
         return created;
     }
+
+    @Override
+    public String toString() {
+        return "Post{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", description='" + description + '\''
+                + ", created=" + created
+                + '}';
+    }
 }
