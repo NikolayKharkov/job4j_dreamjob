@@ -13,20 +13,6 @@
 <body>
 
 <div class="container">
-    <table class="table">
-        <thead>
-        <tr>
-            <th>URL</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${id}" var="id" varStatus="status">
-            <tr>
-                <td><a href="<c:url value='/photoDownload?id=${id}'/>">Download</a></td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
     <h2>Upload image</h2>
     <form action="<c:url value='/photoUpload?id=${id}'/>" method="post" enctype="multipart/form-data">
         <div class="checkbox">
