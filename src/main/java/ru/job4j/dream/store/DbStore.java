@@ -5,7 +5,6 @@ import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.sql.*;
 import java.util.ArrayList;
