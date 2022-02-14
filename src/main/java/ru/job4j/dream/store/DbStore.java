@@ -169,8 +169,7 @@ public class DbStore implements Store {
     public void saveUser(User user) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(
-                     "INSERT INTO users(name, email, password) VALUES (?, ?, ?)",
-                     PreparedStatement.RETURN_GENERATED_KEYS)
+                     "INSERT INTO users(name, email, password) VALUES (?, ?, ?)")
         ) {
             ps.setString(1, user.getName());
             ps.setString(2, user.getEmail());
