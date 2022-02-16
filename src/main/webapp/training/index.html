@@ -8,15 +8,40 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
-        function validate() {
+        function validate(firstName, lastName, gender, userDescription) {
+            let result = true;
+            if (firstName === "") {
+                alert("Заполните " + $("#userFirstName").attr("title"));
+                result = false;
+            }
+            if (lastName === "") {
+                alert("Заполните " + $("#userLastName").attr("title"));
+                result = false;
+            }
+            if (gender === undefined) {
+                alert("Заполните " + $("input:radio[name ='gender']").attr("title"));
+                result = false;
+            }
+            if (userDescription === "") {
+                alert("Заполните " + $("#userDescription").attr("title"));
+                result = false;
+            }
+            return result;
+        }
+        function addRow() {
             const firstName = $('#userFirstName').val();
             const lastName = $('#userLastName').val();
             const gender = $("input:radio[name ='gender']:checked").val();
             const userDescription = $('#userDescription').val();
-            if (firstName === "") alert("Заполните " + $("#userFirstName").attr("title"));
-            if (lastName === "") alert("Заполните " + $("#userLastName").attr("title"));
-            if (gender === undefined) alert("Заполните " + $("input:radio[name ='gender']").attr("title"));
-            if (userDescription === "") alert("Заполните " + $("#userDescription").attr("title"));
+            if(validate(firstName, lastName, gender, userDescription)) {
+                $('#table tr:last')
+                    .after('<tr>' +
+                        '<td>' + firstName +'</td>' +
+                        '<td>' + lastName +'</td>' +
+                        '<td>' + gender +'</td>' +
+                        '<td>' + userDescription +'</td>' +
+                        '</tr>');
+            }
         }
     </script>
 </head>
@@ -46,30 +71,18 @@
             <textarea class="form-control" id="userDescription" rows="3" title="Описание"></textarea>
         </div>
     </form>
-    <button type="button" class="btn btn-primary mb-2" onclick="return validate();">Добавить</button>
+    <button type="button" class="btn btn-primary mb-2" onclick="addRow()">Добавить</button>
 </div>
 
-<table class="table">
+<table class="table" id="table">
     <thead class="thead-dark">
     <tr>
         <th scope="col">Имя</th>
         <th scope="col">Фамилия</th>
+        <th scope="col">Пол</th>
         <th scope="col">Описание</th>
     </tr>
     </thead>
-    <tbody>
-    <tr>
-        <td>Анна</td>
-        <td>Королева</td>
-        <td>Описание</td>
-    </tr>
-    <tr>
-        <td>Иванов</td>
-        <td>Иван</td>
-        <td>Описание</td>
-    </tr>
-    </tbody>
 </table>
-
 </body>
 </html>
