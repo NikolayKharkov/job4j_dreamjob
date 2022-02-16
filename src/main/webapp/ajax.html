@@ -21,18 +21,32 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
     <script>
-        function sendGreeting() {
-            const email = $('#email').val();
+        $(document).ready(function () {
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:8080/job4j_dreamjob/greet',
-                data: 'name=' + email,
-                dataType: 'text'
-            }).done(function(data) {
-                console.log(data);
-                $("#submittedEmail").text(email);
-            }).fail(function(err){
-                alert(err);
+                dataType: 'json'
+            }).done(function (data) {
+                for (let email of data) {
+                    $('#emailList li:last').append(`<li>${email.name}</li>`)
+                }
+            }).fail(function (err) {
+                console.log(err);
+            });
+        });
+
+        function sendGreeting() {
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8080/job4j_dreamjob/greet',
+                data: JSON.stringify({
+                    name: $('#email').val()
+                }),
+                dataType: 'json'
+            }).done(function (data) {
+                $('#emailList li:last').append(`<li>${data.name}</li>`)
+            }).fail(function (err) {
+                console.log(err);
             });
         }
     </script>
@@ -49,6 +63,11 @@
         </div>
         <button type="button" class="btn btn-primary" onclick="sendGreeting()">Submit</button>
     </form>
+    <br>
+    Почты:
+    <ul id="emailList">
+        <li></li>
+    </ul>
 </div>
 </body>
 </html>
