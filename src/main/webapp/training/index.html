@@ -7,34 +7,46 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function validate() {
+            const firstName = $('#userFirstName').val();
+            const lastName = $('#userLastName').val();
+            const gender = $("input:radio[name ='gender']:checked").val();
+            const userDescription = $('#userDescription').val();
+            if (firstName === "") alert("Заполните " + $("#userFirstName").attr("title"));
+            if (lastName === "") alert("Заполните " + $("#userLastName").attr("title"));
+            if (gender === undefined) alert("Заполните " + $("input:radio[name ='gender']").attr("title"));
+            if (userDescription === "") alert("Заполните " + $("#userDescription").attr("title"));
+        }
+    </script>
 </head>
 <body>
 
 <div class="container-fluid">
     <form>
         <div class="form-group">
-            <label for="firstNameInput">Имя</label>
-            <input type="text" class="form-control" id="firstNameInput">
+            <label for="userFirstName">Имя</label>
+            <input type="text" class="form-control" id="userFirstName" title="Имя">
         </div>
         <div class="form-group">
-            <label for="lastNameInput">Фамилия</label>
-            <input type="text" class="form-control" id="lastNameInput">
+            <label for="userLastName">Фамилия</label>
+            <input type="text" class="form-control" id="userLastName" title="Фамилия">
         </div>
         Выберите пол:
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="male" value="option1">
-            <label class="form-check-label" for="male">Мужской</label>
+            <input class="form-check-input" type="radio" name="gender" value="male" title="Пол">
+            <label class="form-check-label">Мужской</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="female" value="option2">
-            <label class="form-check-label" for="female">Женский</label>
+            <input class="form-check-input" type="radio" name="gender" value="female" title="Пол">
+            <label class="form-check-label">Женский</label>
         </div>
         <div class="form-group">
             <label for="userDescription">Описание</label>
-            <textarea class="form-control" id="userDescription" rows="3"></textarea>
+            <textarea class="form-control" id="userDescription" rows="3" title="Описание"></textarea>
         </div>
     </form>
-    <button type="submit" class="btn btn-primary mb-2">Добавить</button>
+    <button type="button" class="btn btn-primary mb-2" onclick="return validate();">Добавить</button>
 </div>
 
 <table class="table">
