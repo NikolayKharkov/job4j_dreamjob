@@ -21,7 +21,6 @@
 </head>
 <body>
 <div class="container pt-3">
-
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
@@ -31,14 +30,14 @@
                 <form action="<%=request.getContextPath()%>/auth.do" method="post">
                     <div class="form-group">
                         <label>Почта</label>
-                        <input type="text" class="form-control" name="email">
+                        <input required type="text" class="form-control" name="email" placeholder="Введите почту">
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
-                        <input type="text" class="form-control" name="password">
+                        <input required type="password" class="form-control" name="password" placeholder="Введите пароль">
                     </div>
                     <button type="submit" class="btn btn-primary">Войти</button>
-                    <a class="nav-link" href="<%=request.getContextPath()%>/reg.jsp">Регистрация</a>
+                    <a class="btn btn-success" href="<%=request.getContextPath()%>/reg.jsp">Регистрация</a>
                     <c:if test="${not empty error}">
                         <div style="color:red; font-weight: bold; margin: 30px 0;">
                             <c:out value="${error}"/>

@@ -30,15 +30,15 @@
                 <form action="<%=request.getContextPath()%>/reg.do" method="post">
                     <div class="form-group">
                         <label>Имя</label>
-                        <input required type="text" class="form-control" name="name">
+                        <input required type="text" class="form-control" name="name" placeholder="Укажите имя">
                     </div>
                     <div class="form-group">
                         <label>Почта</label>
-                        <input required type="text" class="form-control" name="email">
+                        <input required type="text" class="form-control" name="email" placeholder="Укажите почту">
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
-                        <input required type="password" class="form-control" name="password">
+                        <input required type="password" class="form-control" name="password" placeholder="Укажите пароль">
                     </div>
                     <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
                     <c:if test="${not empty error}">

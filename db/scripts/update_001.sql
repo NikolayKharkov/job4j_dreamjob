@@ -7,7 +7,9 @@ CREATE TABLE posts (
 
 CREATE TABLE candidates (
         id SERIAL PRIMARY KEY,
-        name VARCHAR(255)
+        name VARCHAR(255),
+        city_id INTEGER REFERENCES cities (Id),
+        created DATE default CURRENT_DATE
 );
 
 CREATE TABLE users (
@@ -18,3 +20,14 @@ CREATE TABLE users (
         created DATE default CURRENT_DATE
 );
 
+CREATE TABLE cities (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) UNIQUE
+);
+
+insert into cities(name) values('Москва');
+insert into cities(name) values('Санкт-Петербург');
+insert into cities(name) values('Казань');
+insert into cities(name) values('Владивосток');
+insert into cities(name) values('Калининград');
+insert into cities(name) values('Сочи');

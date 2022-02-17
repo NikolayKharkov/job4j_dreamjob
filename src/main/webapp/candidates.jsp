@@ -22,29 +22,8 @@
 </head>
 <body>
 <div class="container">
-    <div class="row">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/posts.do">Вакансии</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/candidates.do">Кандидаты</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/post/edit.jsp">Добавить вакансию</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/candidate/edit.jsp">Добавить кандидата</a>
-            </li>
-            <c:if test="${user != null}">
-                <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> | Выйти</a>
-                </li>
-            </c:if>
-        </ul>
-    </div>
+    <jsp:include page="navBar.jsp"/>
 <div class="container pt-3">
-
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
@@ -70,8 +49,10 @@
                         <td>
                             <img src="<c:url value='/photoDownload?id=${candidate.id}'/>" width="100px" height="100px"/>
                         </td>
-                        <td><a href="<c:url value='/photoUpload?id=${candidate.id}'/>">Добавить</a></td>
-                        <td><a href="<c:url value='/deleteCandidate?id=${candidate.id}'/>">Удалить</a>
+                        <td><a class="btn btn-success" href="<c:url value='/photoUpload?id=${candidate.id}'/>">
+                            Добавить фото</a></td>
+                        <td><a class="btn btn-danger" href="<c:url value='/deleteCandidate?id=${candidate.id}'/>">
+                            Удалить кандидата</a>
                         </td>
                     </tr>
                     </c:forEach>

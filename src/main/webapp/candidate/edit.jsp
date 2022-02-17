@@ -24,33 +24,13 @@
 <body>
 <%
     String id = request.getParameter("id");
-    Candidate candidate = new Candidate(0, "");
+    Candidate candidate = new Candidate(0, "", 0);
     if (id != null) {
         candidate = DbStore.instOf().findCandidateById(Integer.valueOf(id));
     }
 %>
 <div class="container">
-    <div class="row">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/posts.do">Вакансии</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/candidates.do">Кандидаты</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/post/edit.jsp">Добавить вакансию</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/candidate/edit.jsp">Добавить кандидата</a>
-            </li>
-            <c:if test="${user != null}">
-                <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> | Выйти</a>
-                </li>
-            </c:if>
-        </ul>
-    </div>
+    <jsp:include page="/navBar.jsp"/>
 </div>
 <div class="container pt-3">
     <div class="row">
@@ -66,7 +46,15 @@
                 <form action="<%=request.getContextPath()%>/candidates.do?id=<%=candidate.getId()%>" method="post">
                     <div class="form-group">
                         <label>Имя</label>
-                        <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>">
+                        <input required type="text" class="form-control" name="name" value="<%=candidate.getName()%>" placeholder="Укажите имя">
+                    </div>
+                    <div class="form-group">
+                        <label>Город</label>
+                        <select class="form-control" name="city">
+                            <c:forEach items="${DbStore.instOf().findAllCities()}" var="city">
+                                <option value="${city.id}"><c:out value="${city.name}" /></option>
+                            </c:forEach>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>

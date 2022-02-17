@@ -30,27 +30,7 @@
     }
 %>
 <div class="container">
-    <div class="row">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/posts.do">Вакансии</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/candidates.do">Кандидаты</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/post/edit.jsp">Добавить вакансию</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/candidate/edit.jsp">Добавить кандидата</a>
-            </li>
-            <c:if test="${user != null}">
-                <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> | Выйти</a>
-                </li>
-            </c:if>
-        </ul>
-    </div>
+    <jsp:include page="/navBar.jsp"/>
 </div>
 <div class="container pt-3">
     <div class="row">
@@ -66,9 +46,9 @@
                 <form action="<%=request.getContextPath()%>/posts.do?id=<%=post.getId()%>" method="post">
                     <div class="form-group">
                         <label>Имя</label>
-                        <input type="text" class="form-control" name="name" value="<%=post.getName()%>">
+                        <input required type="text" class="form-control" name="name" value="<%=post.getName()%>" placeholder="Укажите имя вакансии">
                         <label>Описание</label>
-                        <input type="text" class="form-control" name="description" value="<%=post.getDescription()%>">
+                        <input required type="text" class="form-control" name="description" value="<%=post.getDescription()%>" placeholder="Укажите описание вакансии">
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>

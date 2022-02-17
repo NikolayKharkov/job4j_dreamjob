@@ -2,6 +2,7 @@ package ru.job4j.dream.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import ru.job4j.dream.model.Candidate;
+import ru.job4j.dream.model.City;
 import ru.job4j.dream.model.Post;
 import ru.job4j.dream.model.User;
 
@@ -56,7 +57,7 @@ public class DbStore implements Store {
     public Collection<Post> findAllPosts() {
         List<Post> result = new ArrayList<>();
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement("SELECT * FROM posts")
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM posts")
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
@@ -83,7 +84,8 @@ public class DbStore implements Store {
                 while (it.next()) {
                     result.add(new Candidate(
                             it.getInt("id"),
-                            it.getString("name")));
+                            it.getString("name"),
+                            it.getInt("city_id")));
                 }
             }
         } catch (Exception e) {
@@ -134,7 +136,8 @@ public class DbStore implements Store {
                 if (it.next()) {
                     result = new Candidate(
                             it.getInt("id"),
-                            it.getString("name"));
+                            it.getString("name"),
+                            it.getInt("city_id"));
                 }
             }
         } catch (Exception e) {
@@ -241,10 +244,11 @@ public class DbStore implements Store {
     private Candidate createCandidate(Candidate candidate) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(
-                     "INSERT INTO candidates(name) VALUES (?)",
+                     "INSERT INTO candidates(name, city_id) VALUES (?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             ps.setString(1, candidate.getName());
+            ps.setInt(2, candidate.getCityId());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -260,14 +264,78 @@ public class DbStore implements Store {
     private Candidate updateCandidate(Candidate candidate) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(
-                     "UPDATE candidates SET name = ? WHERE id = ?")
+                     "UPDATE candidates SET name = ?, city_id = ? WHERE id = ?")
         ) {
             ps.setString(1, candidate.getName());
-            ps.setInt(2, candidate.getId());
+            ps.setInt(2, candidate.getCityId());
+            ps.setInt(3, candidate.getId());
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return candidate;
+    }
+
+    @Override
+    public Collection<Post> findAllTodayPosts() {
+        List<Post> result = new ArrayList<>();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =
+                     cn.prepareStatement("SELECT * FROM posts WHERE created BETWEEN current_date AND current_date + 1")
+        ) {
+            try (ResultSet it = ps.executeQuery()) {
+                while (it.next()) {
+                    result.add(new Post(
+                            it.getInt("id"),
+                            it.getString("name"),
+                            it.getString("description"),
+                            it.getString("created")));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public Collection<Candidate> findAllTodayCandidates() {
+        List<Candidate> result = new ArrayList<>();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =
+                     cn.prepareStatement("SELECT * FROM candidates WHERE created BETWEEN current_date AND current_date + 1")
+        ) {
+            try (ResultSet it = ps.executeQuery()) {
+                while (it.next()) {
+                    result.add(new Candidate(
+                            it.getInt("id"),
+                            it.getString("name"),
+                            it.getInt("city_id")));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public Collection<City> findAllCities() {
+        List<City> result = new ArrayList<>();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =
+                     cn.prepareStatement("SELECT * FROM cities ORDER BY name")
+        ) {
+            try (ResultSet it = ps.executeQuery()) {
+                while (it.next()) {
+                    result.add(new City(
+                            it.getInt("id"),
+                            it.getString("name")));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
