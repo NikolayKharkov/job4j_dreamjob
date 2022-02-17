@@ -21,7 +21,7 @@ public class DbStoreTest {
     @Test
     public void whenCreateCandidate() {
         Store store = DbStore.instOf();
-        Candidate candidate = new Candidate(0, "Name",0);
+        Candidate candidate = new Candidate(0, "name", 1);
         store.saveCandidate(candidate);
         Candidate candidateInDb = store.findCandidateById(candidate.getId());
         assertThat(candidateInDb.getName(), is(candidate.getName()));
@@ -41,7 +41,7 @@ public class DbStoreTest {
     @Test
     public void whenUpdateCandidate() {
         Store store = DbStore.instOf();
-        Candidate candidate = new Candidate(0, "Java Junior",0);
+        Candidate candidate = new Candidate(0, "name", 1);
         store.saveCandidate(candidate);
         candidate.setName("Java Middle");
         store.saveCandidate(candidate);
@@ -52,7 +52,7 @@ public class DbStoreTest {
     @Test
     public void whenDeleteCandidate() {
         Store store = DbStore.instOf();
-        Candidate candidate = new Candidate(0, "Java Junior", 0);
+        Candidate candidate = new Candidate(0, "name", 1);
         store.saveCandidate(candidate);
         Candidate candidateInDb = store.findCandidateById(candidate.getId());
         store.deleteCandidate(candidateInDb.getId());

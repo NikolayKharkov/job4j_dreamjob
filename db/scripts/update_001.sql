@@ -5,6 +5,11 @@ CREATE TABLE posts (
         created DATE
 );
 
+CREATE TABLE cities (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) UNIQUE
+);
+
 CREATE TABLE candidates (
         id SERIAL PRIMARY KEY,
         name VARCHAR(255),
@@ -20,14 +25,9 @@ CREATE TABLE users (
         created DATE default CURRENT_DATE
 );
 
-CREATE TABLE cities (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(255) UNIQUE
-);
-
-insert into cities(name) values('Москва');
-insert into cities(name) values('Санкт-Петербург');
-insert into cities(name) values('Казань');
-insert into cities(name) values('Владивосток');
-insert into cities(name) values('Калининград');
-insert into cities(name) values('Сочи');
+INSERT INTO cities(name) VALUES('Москва');
+INSERT INTO cities(name) VALUES('Санкт-Петербург');
+INSERT INTO cities(name) VALUES('Казань');
+INSERT INTO cities(name) VALUES('Владивосток');
+INSERT INTO cities(name) VALUES('Калининград');
+INSERT INTO cities(name) VALUES('Сочи');
