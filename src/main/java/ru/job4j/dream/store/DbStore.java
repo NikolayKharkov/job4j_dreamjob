@@ -1,6 +1,8 @@
 package ru.job4j.dream.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.City;
 import ru.job4j.dream.model.Post;
@@ -15,8 +17,9 @@ import java.util.List;
 import java.util.Properties;
 
 public class DbStore implements Store {
-    private static final DbStore INSTANCE = new DbStore();
 
+    private static final Logger LOG = LogManager.getLogger(DbStore.class.getName());
+    private static final DbStore INSTANCE = new DbStore();
     private final BasicDataSource pool = new BasicDataSource();
 
     private DbStore() {
@@ -69,7 +72,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("findAllPosts() method", e);
         }
         return result;
     }
@@ -89,7 +92,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("findAllCandidates() method", e);
         }
         return result;
     }
@@ -120,7 +123,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("findPostById() method", e);
         }
         return result;
     }
@@ -141,7 +144,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("findCandidateById() method", e);
         }
         return result;
     }
@@ -164,7 +167,7 @@ public class DbStore implements Store {
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("deleteCandidate() method", e);
         }
     }
 
@@ -179,7 +182,7 @@ public class DbStore implements Store {
             ps.setString(3, user.getPassword());
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("saveUser() method", e);
         }
     }
 
@@ -200,7 +203,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("findUserByEmail() method", e);
         }
         return result;
     }
@@ -221,7 +224,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("createPost() method", e);
         }
         return post;
     }
@@ -236,7 +239,7 @@ public class DbStore implements Store {
             ps.setInt(3, post.getId());
             ps.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("updatePost() method", e);
         }
         return post;
     }
@@ -256,7 +259,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("createCandidate() method", e);
         }
         return candidate;
     }
@@ -271,7 +274,7 @@ public class DbStore implements Store {
             ps.setInt(3, candidate.getId());
             ps.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("updateCandidate() method", e);
         }
         return candidate;
     }
@@ -281,7 +284,7 @@ public class DbStore implements Store {
         List<Post> result = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =
-                     cn.prepareStatement("SELECT * FROM posts WHERE created BETWEEN current_date AND current_date + 1")
+                     cn.prepareStatement("SELECT * FROM posts WHERE created BETWEEN current_date - 1 AND current_date")
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
@@ -293,7 +296,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("findAllTodayPosts() method", e);
         }
         return result;
     }
@@ -303,7 +306,7 @@ public class DbStore implements Store {
         List<Candidate> result = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =
-                     cn.prepareStatement("SELECT * FROM candidates WHERE created BETWEEN current_date AND current_date + 1")
+                     cn.prepareStatement("SELECT * FROM candidates WHERE created BETWEEN current_date - 1 AND current_date")
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
@@ -314,7 +317,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("findAllTodayCandidates() method", e);
         }
         return result;
     }
@@ -334,7 +337,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("findAllCities() method", e);
         }
         return result;
     }

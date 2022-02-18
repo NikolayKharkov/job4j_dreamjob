@@ -31,3 +31,5 @@ INSERT INTO cities(name) VALUES('Казань');
 INSERT INTO cities(name) VALUES('Владивосток');
 INSERT INTO cities(name) VALUES('Калининград');
 INSERT INTO cities(name) VALUES('Сочи');
+
+

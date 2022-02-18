@@ -32,10 +32,11 @@ public class CandidateServletTest {
     public void whenCreateThenEditPost() throws IOException, ServletException {
         HttpServletRequest req = mock(HttpServletRequest.class);
         HttpServletResponse resp = mock(HttpServletResponse.class);
-        DbStore.instOf().saveCandidate(new Candidate(0, "name", 1));
-        when(req.getParameter("id")).thenReturn("2");
-        when(req.getParameter("name")).thenReturn("edit name");
-        when(req.getParameter("city")).thenReturn("1");
+        Candidate can = new Candidate(0, "name", 1);
+        DbStore.instOf().saveCandidate(can);
+        when(req.getParameter("id")).thenReturn(String.valueOf(can.getId()));
+        when(req.getParameter("name")).thenReturn(String.valueOf(can.getName()));
+        when(req.getParameter("city")).thenReturn(String.valueOf(can.getCityId()));
         new CandidateServlet().doPost(req, resp);
         Candidate candidate = DbStore.instOf().findCandidateById(2);
         assertThat("edit name", is(candidate.getName()));
